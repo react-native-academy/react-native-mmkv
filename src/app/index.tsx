@@ -1,25 +1,32 @@
 import { Item } from '@/components/Item';
+import { useShoppingItems } from '@/contexts/ShoppingItemsContext';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 export default function HomeScreen() {
-	const items = [
-		'Brioche',
-		'Nuttela',
-		'Croissant',
-		'Pain au chocolat',
-		'Café',
-		"Jus d'orange",
-	];
-	const sortedItems = [...items].sort((a, b) => a.localeCompare(b, 'fr'));
+	const { items, toggleItem } = useShoppingItems();
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>Ma liste</Text>
 			<FlatList
-				data={sortedItems}
-				keyExtractor={(item, index) => `${item}-${index}`}
+				style={styles.list}
+				data={items}
+				keyExtractor={(item) => item.id}
 				contentContainerStyle={styles.listContent}
-				renderItem={({ item }) => <Item label={item} />}
+				ListEmptyComponent={
+					<View style={styles.emptyContainer}>
+						<Text style={styles.emptyTitle}>Aucun article</Text>
+						<Text style={styles.emptySubtitle}>
+							Appuie sur le bouton + pour en ajouter un.
+						</Text>
+					</View>
+				}
+				renderItem={({ item }) => (
+					<Item
+						name={item.name}
+						purchased={item.purchased}
+						onToggle={() => toggleItem(item.id)}
+					/>
+				)}
 			/>
 		</View>
 	);
@@ -27,17 +34,30 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
 	container: {
-		// flex: 1,
+		flex: 1,
 		justifyContent: 'center',
 		backgroundColor: '#f6f6f6',
 		padding: 16,
 	},
-	title: {
-		fontSize: 20,
-		fontWeight: '700',
-		marginBottom: 12,
+	list: {
+		flex: 1,
 	},
 	listContent: {
+		flexGrow: 1,
 		gap: 10,
+	},
+	emptyContainer: {
+		paddingVertical: 48,
+		alignItems: 'center',
+		gap: 8,
+	},
+	emptyTitle: {
+		fontSize: 18,
+		fontWeight: '700',
+		color: '#0f172a',
+	},
+	emptySubtitle: {
+		fontSize: 14,
+		color: '#475569',
 	},
 });

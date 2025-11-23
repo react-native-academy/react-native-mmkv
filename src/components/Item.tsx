@@ -1,23 +1,23 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 type ItemProps = {
-	label: string;
+	name: string;
+	purchased: boolean;
+	onToggle: () => void;
 };
 
-export function Item({ label }: ItemProps) {
-	const [checked, setChecked] = useState(false);
-	const iconName = checked ? 'checkmark-circle' : 'ellipse-outline';
-	const iconColor = checked ? '#22c55e' : '#94a3b8';
+export function Item({ name, purchased, onToggle }: ItemProps) {
+	const iconName = purchased ? 'checkmark-circle' : 'ellipse-outline';
+	const iconColor = purchased ? '#22c55e' : '#94a3b8';
 
 	return (
 		<View style={styles.item}>
-			<Text style={[styles.text, checked && styles.textChecked]}>{label}</Text>
+			<Text style={[styles.text, purchased && styles.textChecked]}>{name}</Text>
 			<Pressable
 				accessibilityRole="checkbox"
-				accessibilityState={{ checked }}
-				onPress={() => setChecked((prev) => !prev)}
+				accessibilityState={{ checked: purchased }}
+				onPress={onToggle}
 				style={({ pressed }) => [
 					styles.checkbox,
 					pressed && styles.checkboxPressed,
