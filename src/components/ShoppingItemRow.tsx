@@ -97,19 +97,16 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'row',
 		alignItems: 'center',
-		gap: 8,
+		gap: 2,
+		minWidth: 0,
 	},
 	actions: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		gap: 6,
+		gap: 4,
 	},
 	text: {
 		fontSize: 14,
-		fontWeight: '600',
-		color: '#0f172a',
-		flexShrink: 1,
-		maxWidth: '85%',
 	},
 	textChecked: {
 		color: '#94a3b8',
@@ -120,9 +117,11 @@ const styles = StyleSheet.create({
 		borderRadius: 16,
 	},
 	textButton: {
+		flex: 1,
 		paddingVertical: 4,
 		paddingHorizontal: 2,
 		borderRadius: 8,
+		justifyContent: 'center',
 	},
 	deleteButton: {
 		padding: 6,

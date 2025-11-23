@@ -27,7 +27,7 @@ export default function RootLayout() {
 					name="add-item"
 					options={{
 						presentation: 'modal',
-						title: 'Ajouter un article',
+						headerTitle: 'Ajouter un article',
 					}}
 				/>
 			</Stack>
