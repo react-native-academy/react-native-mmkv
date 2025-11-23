@@ -1,9 +1,9 @@
 import { Item } from '@/components/Item';
-import { useShoppingItems } from '@/contexts/ShoppingItemsContext';
+import { useShoppingListContext } from '@/contexts/ShoppingListContext';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 export default function HomeScreen() {
-	const { items, toggleItem, removeItem } = useShoppingItems();
+	const { items, toggleItem, removeItem } = useShoppingListContext();
 
 	return (
 		<View style={styles.container}>

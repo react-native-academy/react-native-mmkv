@@ -2,11 +2,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { Stack, router } from 'expo-router';
 import { Pressable } from 'react-native';
 
-import { ShoppingItemsProvider } from '@/contexts/ShoppingItemsContext';
+import { ShoppingListProvider } from '@/contexts/ShoppingListContext';
 
 export default function RootLayout() {
 	return (
-		<ShoppingItemsProvider>
+		<ShoppingListProvider>
 			<Stack>
 				<Stack.Screen
 					name="index"
@@ -31,6 +31,6 @@ export default function RootLayout() {
 					}}
 				/>
 			</Stack>
-		</ShoppingItemsProvider>
+		</ShoppingListProvider>
 	);
 }

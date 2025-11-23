@@ -9,10 +9,10 @@ import {
 	TextInput,
 } from 'react-native';
 
-import { useShoppingItems } from '@/contexts/ShoppingItemsContext';
+import { useShoppingListContext } from '@/contexts/ShoppingListContext';
 
 export default function AddItemScreen() {
-	const { addItem } = useShoppingItems();
+	const { addItem } = useShoppingListContext();
 	const [name, setName] = useState('');
 
 	const handleSubmit = () => {

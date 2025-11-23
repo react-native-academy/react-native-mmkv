@@ -4,7 +4,7 @@ import { useState } from 'react';
 const sortItems = (list: ShoppingItem[]) =>
 	[...list].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
 
-export function useShoppingItemsLogic() {
+export function useShoppingList() {
 	const [items, setItems] = useState<ShoppingItem[]>([]);
 
 	const toggleItem = (id: string) => {
