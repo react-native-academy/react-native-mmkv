@@ -3,7 +3,7 @@ import { useShoppingItems } from '@/contexts/ShoppingItemsContext';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 export default function HomeScreen() {
-	const { items, toggleItem } = useShoppingItems();
+	const { items, toggleItem, removeItem } = useShoppingItems();
 
 	return (
 		<View style={styles.container}>
@@ -25,6 +25,7 @@ export default function HomeScreen() {
 						name={item.name}
 						purchased={item.purchased}
 						onToggle={() => toggleItem(item.id)}
+						onDelete={() => removeItem(item.id)}
 					/>
 				)}
 			/>

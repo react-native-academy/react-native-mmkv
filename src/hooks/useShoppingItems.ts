@@ -33,9 +33,14 @@ export function useShoppingItemsLogic() {
 		);
 	};
 
+	const removeItem = (id: string) => {
+		setItems((prev) => prev.filter((item) => item.id !== id));
+	};
+
 	return {
 		items: sortItems(items),
 		toggleItem,
 		addItem,
+		removeItem,
 	};
 }

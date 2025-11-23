@@ -5,29 +5,45 @@ type ItemProps = {
 	name: string;
 	purchased: boolean;
 	onToggle: () => void;
+	onDelete: () => void;
 };
 
-export function Item({ name, purchased, onToggle }: ItemProps) {
+export function Item({ name, purchased, onToggle, onDelete }: ItemProps) {
 	const iconName = purchased ? 'checkmark-circle' : 'ellipse-outline';
 	const iconColor = purchased ? '#22c55e' : '#94a3b8';
 
 	return (
 		<View style={styles.item}>
 			<Text style={[styles.text, purchased && styles.textChecked]}>{name}</Text>
-			<Pressable
-				accessibilityRole="checkbox"
-				accessibilityState={{ checked: purchased }}
-				onPress={onToggle}
-				style={({ pressed }) => [
-					styles.checkbox,
-					pressed && styles.checkboxPressed,
-				]}>
-				<Ionicons
-					name={iconName}
-					size={26}
-					color={iconColor}
-				/>
-			</Pressable>
+			<View style={styles.actions}>
+				<Pressable
+					accessibilityRole="checkbox"
+					accessibilityState={{ checked: purchased }}
+					onPress={onToggle}
+					style={({ pressed }) => [
+						styles.checkbox,
+						pressed && styles.checkboxPressed,
+					]}>
+					<Ionicons
+						name={iconName}
+						size={26}
+						color={iconColor}
+					/>
+				</Pressable>
+				<Pressable
+					accessibilityLabel={`Supprimer ${name}`}
+					onPress={onDelete}
+					style={({ pressed }) => [
+						styles.deleteButton,
+						pressed && styles.checkboxPressed,
+					]}>
+					<Ionicons
+						name="trash-outline"
+						size={22}
+						color="#ef4444"
+					/>
+				</Pressable>
+			</View>
 		</View>
 	);
 }
@@ -45,6 +61,11 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 	},
+	actions: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		gap: 8,
+	},
 	text: {
 		fontSize: 17,
 		fontWeight: '600',
@@ -56,6 +77,10 @@ const styles = StyleSheet.create({
 	},
 	checkbox: {
 		padding: 4,
+		borderRadius: 16,
+	},
+	deleteButton: {
+		padding: 6,
 		borderRadius: 16,
 	},
 	checkboxPressed: {
