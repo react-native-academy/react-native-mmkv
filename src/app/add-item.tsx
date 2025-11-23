@@ -1,4 +1,4 @@
-import { router, useLocalSearchParams } from 'expo-router';
+import { Stack, router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
 	KeyboardAvoidingView,
@@ -42,9 +42,12 @@ export default function AddItemScreen() {
 		<KeyboardAvoidingView
 			style={styles.container}
 			behavior={Platform.select({ ios: 'padding', android: undefined })}>
-			<Text style={styles.title}>
-				{isEditing ? 'Modifier un article' : 'Nouvel article'}
-			</Text>
+			<Stack.Screen
+				options={{
+					headerTitle: isEditing ? 'Modifier un article' : 'Nouvel article',
+				}}
+			/>
+			<Text style={styles.title}>Nom de l&apos;article : </Text>
 			<TextInput
 				value={name}
 				onChangeText={setName}
@@ -79,10 +82,10 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	title: {
-		fontSize: 20,
+		fontSize: 14,
 		fontWeight: '700',
 		color: '#0f172a',
-		textAlign: 'center',
+		textAlign: 'left',
 	},
 	input: {
 		borderWidth: 1,
