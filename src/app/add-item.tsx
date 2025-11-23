@@ -12,11 +12,11 @@ import {
 import { useShoppingListContext } from '@/contexts/ShoppingListContext';
 
 export default function AddItemScreen() {
-	const { addItem } = useShoppingListContext();
+	const { addListItem } = useShoppingListContext();
 	const [name, setName] = useState('');
 
 	const handleSubmit = () => {
-		addItem(name);
+		addListItem(name);
 		setName('');
 		router.back();
 	};

@@ -1,4 +1,4 @@
-type ShoppingItem = {
+type ShoppingListItem = {
 	id: string;
 	name: string;
 	purchased: boolean;

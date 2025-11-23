@@ -1,13 +1,13 @@
 import { randomUUID } from 'expo-crypto';
 import { useState } from 'react';
 
-const sortItems = (list: ShoppingItem[]) =>
+const sortItems = (list: ShoppingListItem[]) =>
 	[...list].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
 
 export function useShoppingList() {
-	const [items, setItems] = useState<ShoppingItem[]>([]);
+	const [items, setItems] = useState<ShoppingListItem[]>([]);
 
-	const toggleItem = (id: string) => {
+	const toggleListItem = (id: string) => {
 		setItems((prev) =>
 			sortItems(
 				prev.map((item) =>
@@ -17,7 +17,7 @@ export function useShoppingList() {
 		);
 	};
 
-	const addItem = (name: string) => {
+	const addListItem = (name: string) => {
 		const trimmedName = name.trim();
 		if (!trimmedName) return;
 
@@ -33,14 +33,14 @@ export function useShoppingList() {
 		);
 	};
 
-	const removeItem = (id: string) => {
+	const removeListItem = (id: string) => {
 		setItems((prev) => prev.filter((item) => item.id !== id));
 	};
 
 	return {
 		items: sortItems(items),
-		toggleItem,
-		addItem,
-		removeItem,
+		toggleListItem,
+		addListItem,
+		removeListItem,
 	};
 }
