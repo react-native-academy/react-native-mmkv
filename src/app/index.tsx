@@ -1,4 +1,4 @@
-import { Item } from '@/components/Item';
+import { ShoppingItemRow } from '@/components/ShoppingItemRow';
 import { useShoppingListContext } from '@/contexts/ShoppingListContext';
 import { router } from 'expo-router';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
@@ -22,7 +22,7 @@ export default function HomeScreen() {
 					</View>
 				}
 				renderItem={({ item }) => (
-					<Item
+					<ShoppingItemRow
 						name={item.name}
 						purchased={item.purchased}
 						onToggle={() => toggleListItem(item.id)}

@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-type ItemProps = {
+type ShoppingItemRowProps = {
 	name: string;
 	purchased: boolean;
 	onToggle: () => void;
@@ -9,14 +9,19 @@ type ItemProps = {
 	onEdit: () => void;
 };
 
-export function Item({ name, purchased, onToggle, onDelete, onEdit }: ItemProps) {
+export function ShoppingItemRow({
+	name,
+	purchased,
+	onToggle,
+	onDelete,
+	onEdit,
+}: ShoppingItemRowProps) {
 	const iconName = purchased ? 'checkmark-circle' : 'ellipse-outline';
 	const iconColor = purchased ? '#22c55e' : '#94a3b8';
 
 	return (
 		<View style={styles.item}>
-			<Text style={[styles.text, purchased && styles.textChecked]}>{name}</Text>
-			<View style={styles.actions}>
+			<View style={styles.left}>
 				<Pressable
 					accessibilityRole="checkbox"
 					accessibilityState={{ checked: purchased }}
@@ -31,6 +36,18 @@ export function Item({ name, purchased, onToggle, onDelete, onEdit }: ItemProps)
 						color={iconColor}
 					/>
 				</Pressable>
+				<Pressable
+					onPress={onToggle}
+					style={({ pressed }) => [
+						styles.textButton,
+						pressed && styles.checkboxPressed,
+					]}>
+					<Text style={[styles.text, purchased && styles.textChecked]}>
+						{name}
+					</Text>
+				</Pressable>
+			</View>
+			<View style={styles.actions}>
 				<Pressable
 					accessibilityLabel={`Supprimer ${name}`}
 					onPress={onDelete}
@@ -74,24 +91,38 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',
+		gap: 8,
 	},
-	actions: {
+	left: {
+		flex: 1,
 		flexDirection: 'row',
 		alignItems: 'center',
 		gap: 8,
 	},
+	actions: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		gap: 6,
+	},
 	text: {
-		fontSize: 17,
+		fontSize: 14,
 		fontWeight: '600',
 		color: '#0f172a',
+		flexShrink: 1,
+		maxWidth: '85%',
 	},
 	textChecked: {
 		color: '#94a3b8',
 		textDecorationLine: 'line-through',
 	},
 	checkbox: {
-		padding: 4,
+		padding: 6,
 		borderRadius: 16,
+	},
+	textButton: {
+		paddingVertical: 4,
+		paddingHorizontal: 2,
+		borderRadius: 8,
 	},
 	deleteButton: {
 		padding: 6,
