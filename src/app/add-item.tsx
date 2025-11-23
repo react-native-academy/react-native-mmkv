@@ -1,5 +1,5 @@
-import { router } from 'expo-router';
-import { useState } from 'react';
+import { router, useLocalSearchParams } from 'expo-router';
+import { useEffect, useState } from 'react';
 import {
 	KeyboardAvoidingView,
 	Platform,
@@ -12,22 +12,39 @@ import {
 import { useShoppingListContext } from '@/contexts/ShoppingListContext';
 
 export default function AddItemScreen() {
-	const { addListItem } = useShoppingListContext();
+	const { items, addListItem, updateListItemName } = useShoppingListContext();
+	const params = useLocalSearchParams<{ id?: string }>();
+	const editingId = typeof params.id === 'string' ? params.id : undefined;
 	const [name, setName] = useState('');
 
+	useEffect(() => {
+		if (!editingId) return;
+		const existing = items.find((item) => item.id === editingId);
+		if (existing) {
+			setName(existing.name);
+		}
+	}, [editingId, items]);
+
 	const handleSubmit = () => {
-		addListItem(name);
+		if (editingId) {
+			updateListItemName(editingId, name);
+		} else {
+			addListItem(name);
+		}
 		setName('');
 		router.back();
 	};
 
 	const isDisabled = name.trim().length === 0;
+	const isEditing = Boolean(editingId);
 
 	return (
 		<KeyboardAvoidingView
 			style={styles.container}
 			behavior={Platform.select({ ios: 'padding', android: undefined })}>
-			<Text style={styles.title}>Nouvel article</Text>
+			<Text style={styles.title}>
+				{isEditing ? 'Modifier un article' : 'Nouvel article'}
+			</Text>
 			<TextInput
 				value={name}
 				onChangeText={setName}
@@ -45,7 +62,9 @@ export default function AddItemScreen() {
 					isDisabled && styles.buttonDisabled,
 					pressed && !isDisabled && styles.buttonPressed,
 				]}>
-				<Text style={styles.buttonText}>Ajouter</Text>
+				<Text style={styles.buttonText}>
+					{isEditing ? 'Mettre à jour' : 'Ajouter'}
+				</Text>
 			</Pressable>
 		</KeyboardAvoidingView>
 	);

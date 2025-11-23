@@ -6,9 +6,10 @@ type ItemProps = {
 	purchased: boolean;
 	onToggle: () => void;
 	onDelete: () => void;
+	onEdit: () => void;
 };
 
-export function Item({ name, purchased, onToggle, onDelete }: ItemProps) {
+export function Item({ name, purchased, onToggle, onDelete, onEdit }: ItemProps) {
 	const iconName = purchased ? 'checkmark-circle' : 'ellipse-outline';
 	const iconColor = purchased ? '#22c55e' : '#94a3b8';
 
@@ -41,6 +42,19 @@ export function Item({ name, purchased, onToggle, onDelete }: ItemProps) {
 						name="trash-outline"
 						size={22}
 						color="#ef4444"
+					/>
+				</Pressable>
+				<Pressable
+					accessibilityLabel={`Modifier ${name}`}
+					onPress={onEdit}
+					style={({ pressed }) => [
+						styles.editButton,
+						pressed && styles.checkboxPressed,
+					]}>
+					<Ionicons
+						name="pencil-outline"
+						size={22}
+						color="#0ea5e9"
 					/>
 				</Pressable>
 			</View>
@@ -80,6 +94,10 @@ const styles = StyleSheet.create({
 		borderRadius: 16,
 	},
 	deleteButton: {
+		padding: 6,
+		borderRadius: 16,
+	},
+	editButton: {
 		padding: 6,
 		borderRadius: 16,
 	},

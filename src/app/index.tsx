@@ -1,5 +1,6 @@
 import { Item } from '@/components/Item';
 import { useShoppingListContext } from '@/contexts/ShoppingListContext';
+import { router } from 'expo-router';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 export default function HomeScreen() {
@@ -26,6 +27,9 @@ export default function HomeScreen() {
 						purchased={item.purchased}
 						onToggle={() => toggleListItem(item.id)}
 						onDelete={() => removeListItem(item.id)}
+						onEdit={() =>
+							router.push({ pathname: '/add-item', params: { id: item.id } })
+						}
 					/>
 				)}
 			/>

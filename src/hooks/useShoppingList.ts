@@ -37,10 +37,24 @@ export function useShoppingList() {
 		setItems((prev) => prev.filter((item) => item.id !== id));
 	};
 
+	const updateListItemName = (id: string, name: string) => {
+		const trimmedName = name.trim();
+		if (!trimmedName) return;
+
+		setItems((prev) =>
+			sortItems(
+				prev.map((item) =>
+					item.id === id ? { ...item, name: trimmedName } : item
+				)
+			)
+		);
+	};
+
 	return {
 		items: sortItems(items),
 		toggleListItem,
 		addListItem,
 		removeListItem,
+		updateListItemName,
 	};
 }
