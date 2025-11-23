@@ -10,12 +10,13 @@ export default function HomeScreen() {
 		'Café',
 		"Jus d'orange",
 	];
+	const sortedItems = [...items].sort((a, b) => a.localeCompare(b, 'fr'));
 
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>Ma liste</Text>
 			<FlatList
-				data={items}
+				data={sortedItems}
 				keyExtractor={(item, index) => `${item}-${index}`}
 				contentContainerStyle={styles.listContent}
 				renderItem={({ item }) => <Item label={item} />}
@@ -26,9 +27,8 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
+		// flex: 1,
 		justifyContent: 'center',
-		alignItems: 'stretch',
 		backgroundColor: '#f6f6f6',
 		padding: 16,
 	},
@@ -38,6 +38,6 @@ const styles = StyleSheet.create({
 		marginBottom: 12,
 	},
 	listContent: {
-		width: '100%',
+		gap: 10,
 	},
 });

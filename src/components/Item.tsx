@@ -21,9 +21,12 @@ export function Item({ label }: ItemProps) {
 				style={({ pressed }) => [
 					styles.checkbox,
 					pressed && styles.checkboxPressed,
-				]}
-			>
-				<Ionicons name={iconName} size={26} color={iconColor} />
+				]}>
+				<Ionicons
+					name={iconName}
+					size={26}
+					color={iconColor}
+				/>
 			</Pressable>
 		</View>
 	);
@@ -36,17 +39,11 @@ const styles = StyleSheet.create({
 		paddingVertical: 14,
 		paddingHorizontal: 16,
 		borderRadius: 12,
-		marginBottom: 10,
 		borderWidth: 1,
 		borderColor: '#e2e8f0',
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		shadowColor: '#000',
-		shadowOffset: { width: 0, height: 1 },
-		shadowOpacity: 0.07,
-		shadowRadius: 3,
-		elevation: 1,
 	},
 	text: {
 		fontSize: 17,
