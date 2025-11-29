@@ -11,14 +11,13 @@ export function useShoppingList() {
 		const trimmedName = name.trim();
 		if (!trimmedName) return;
 
-		setItems((prev) => [
-			...prev,
-			{
-				id: randomUUID(),
-				name: trimmedName,
-				purchased: false,
-			},
-		]);
+		const newListItem = {
+			id: randomUUID(),
+			name: trimmedName,
+			purchased: false,
+		};
+
+		setItems((prev) => [...prev, newListItem]);
 	};
 
 	const toggleListItem = (id: string) => {
