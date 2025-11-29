@@ -7,29 +7,25 @@ const sortItems = (list: ShoppingListItem[]) =>
 export function useShoppingList() {
 	const [items, setItems] = useState<ShoppingListItem[]>([]);
 
-	const toggleListItem = (id: string) => {
-		setItems((prev) =>
-			sortItems(
-				prev.map((item) =>
-					item.id === id ? { ...item, purchased: !item.purchased } : item
-				)
-			)
-		);
-	};
-
 	const addListItem = (name: string) => {
 		const trimmedName = name.trim();
 		if (!trimmedName) return;
 
+		setItems((prev) => [
+			...prev,
+			{
+				id: randomUUID(),
+				name: trimmedName,
+				purchased: false,
+			},
+		]);
+	};
+
+	const toggleListItem = (id: string) => {
 		setItems((prev) =>
-			sortItems([
-				...prev,
-				{
-					id: randomUUID(),
-					name: trimmedName,
-					purchased: false,
-				},
-			])
+			prev.map((item) =>
+				item.id === id ? { ...item, purchased: !item.purchased } : item
+			)
 		);
 	};
 
@@ -42,18 +38,17 @@ export function useShoppingList() {
 		if (!trimmedName) return;
 
 		setItems((prev) =>
-			sortItems(
-				prev.map((item) =>
-					item.id === id ? { ...item, name: trimmedName } : item
-				)
+			prev.map((item) =>
+				item.id === id ? { ...item, name: trimmedName } : item
 			)
 		);
 	};
 
 	return {
+		// On applique le tri seulement à la sortie du hook
 		items: sortItems(items),
-		toggleListItem,
 		addListItem,
+		toggleListItem,
 		removeListItem,
 		updateListItemName,
 	};
